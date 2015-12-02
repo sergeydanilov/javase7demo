@@ -14,6 +14,7 @@ public final class  TPFileUtils {
     public static String getCurrentPath() {
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
+        //Paths.get(".").toAbsolutePath().normalize().toString()
 
         logger.info("Current relative path is: " + s);
         return s;

@@ -20,8 +20,8 @@ public class NoteFileReader {
 //        Path path = Paths.get("../notes/sample_text.txt");
         Path path = Paths.get(pathString);
         if(Files.exists(path)) {
-//            Charset charset = Charset.forName("UTF-8");
-            Charset charset =  Charset.defaultCharset();
+            Charset charset = Charset.forName("UTF-8");
+//            Charset charset =  Charset.defaultCharset();
             try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
                 String line = null;
                 while ((line = reader.readLine()) != null) {

@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'distribution'
+
+version = '1.0'
+
+mainClassName = "ru.bpal.launcher.LauncherMain"
+
+dependencies {
+
+//    compile "com.twilio.sdk:twilio-java-sdk:3.4.5"
+    compile 'postgresql:postgresql:9.1-901-1.jdbc4'
+}

@@ -1,4 +1,6 @@
-rootProject.name = 'learninghtlmandcss'
+rootProject.name = 'learningjavase7'
 
 include 'tp_rest'
+include 'tp_launcher'
+
 

@@ -9,10 +9,13 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class SAXQueryDemo {
+
+    public static final String XML_FILE_PATH = "/home/serg/projects/teaching/tpjavase7/javase7demo/notes/sample.xml";
+
     public static void main(String[] args) {
 
         try {
-            File inputFile = new File("/home/serg/projects/teaching/tpjavase7/javase7demo/notes/sample.xml");
+            File inputFile = new File(XML_FILE_PATH);
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
 //            DefaultHandler userhandler = new UserHandler();

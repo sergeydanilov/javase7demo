@@ -9,10 +9,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
 public class DomParserDemo {
+
+    public static final String XML_FILE_PATH = "/home/serg/projects/teaching/tpjavase7/javase7demo/notes/sample.xml";
+
     public static void main(String[] args){
 
         try {
-            File inputFile = new File("/home/serg/projects/teaching/tpjavase7/javase7demo/notes/sample.xml");
+            File inputFile = new File(XML_FILE_PATH);
             DocumentBuilderFactory dbFactory
                     = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

@@ -4,10 +4,14 @@ import java.io.BufferedReader;
 import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class RegexTestHarness {
+
+    private static Logger logger = Logger.getLogger(RegexTestHarness.class.getName());
 
     public static void main(String[] args) {
         Console console = System.console();
@@ -40,7 +44,7 @@ public class RegexTestHarness {
                 found = true;
             }
             if (!found) {
-                console.format("No match found.%n");
+                System.out.println(String.format("No match found.%n"));
             }
         }
     }
@@ -50,8 +54,11 @@ public class RegexTestHarness {
             return console.readLine(fmt);
         } else {
             System.out.println(fmt);
+//            Charset charset = Charset.forName("UTF-8");
+            Charset charset = Charset.defaultCharset();
+            logger.info("set input encoding to " + charset);
             BufferedReader br =
-                    new BufferedReader(new InputStreamReader(System.in));
+                    new BufferedReader(new InputStreamReader(System.in, charset));
             String input;
 
             try {

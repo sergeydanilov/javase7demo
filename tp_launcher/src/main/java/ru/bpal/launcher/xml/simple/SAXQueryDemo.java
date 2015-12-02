@@ -15,7 +15,8 @@ public class SAXQueryDemo {
             File inputFile = new File("/home/serg/projects/teaching/tpjavase7/javase7demo/notes/sample.xml");
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
-            UserHandler userhandler = new UserHandler();
+//            DefaultHandler userhandler = new UserHandler();
+            DefaultHandler userhandler = new UserHandler2();
             saxParser.parse(inputFile, userhandler);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="20151024-1" author="serg">
+        <createProcedure>
+            CREATE OR REPLACE FUNCTION upd_timestamp()
+            RETURNS trigger AS
+            $BODY$
+            BEGIN
+            NEW.modified = CURRENT_TIMESTAMP;
+            RETURN NEW;
+            END;
+            $BODY$
+            LANGUAGE plpgsql;
+        </createProcedure>
+        <rollback>
+            DROP FUNCTION upd_timestamp();
+        </rollback>
+    </changeSet>
+
+
+    <!--  bpr_sms_queue -->
+    <changeSet author="serg" id="20151026-2-1">
+        <createTable tableName="bpr_sms_queue">
+            <column defaultValueComputed="uuid_generate_v4()" name="id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="phone" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="full_text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="consumer_first_name" type="TEXT"/>
+            <column name="consumer_middle_name" type="TEXT"/>
+            <column name="consumer_last_name" type="TEXT"/>
+
+            <column name="consumer_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="enterprise_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+
+            <column name="status" type="TEXT"/>
+
+            <column name="result_code" type="TEXT"/>
+            <column name="result_message" type="TEXT"/>
+
+            <column  defaultValueComputed="now()" name="event_date" type="TIMESTAMP WITH TIME ZONE"/>
+
+            <column defaultValueBoolean="false" name="deleted" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+
+            <column defaultValueComputed="now()" name="created" type="TIMESTAMP WITH TIME ZONE"/>
+            <column  defaultValueComputed="now()" name="modified" type="TIMESTAMP WITH TIME ZONE"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="serg" id="20151026-2-2">
+        <addPrimaryKey columnNames="id" constraintName="cn_bpr_sms_queue_id_pk" tableName="bpr_sms_queue"/>
+    </changeSet>
+    <changeSet id="20151026-2-4" author="serg">
+        <sql>
+            CREATE TRIGGER update_modified
+            BEFORE UPDATE ON "bpr_sms_queue"
+            FOR EACH ROW
+            EXECUTE PROCEDURE upd_timestamp();
+        </sql>
+        <rollback>
+            DROP TRIGGER "update_modified" ON "public"."bpr_sms_queue"
+        </rollback>
+    </changeSet>
+    <!--  end of bpr_sms_queue -->
+
+</databaseChangeLog>

@@ -4,6 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.bpal.reminder.rest.data.dao.PastgresqlDao;
+import ru.bpal.reminder.rest.data.entity.db.MessageEntity;
+import ru.bpal.reminder.rest.data.service.SmsQueueService;
+
+import java.util.UUID;
 
 import static ru.bpal.reminder.rest.JsonUtil.toJson;
 import static spark.Spark.*;
@@ -25,22 +30,15 @@ public class MainPoint {
 
         staticFileLocation("/public");
 
+        PastgresqlDao dao = new PastgresqlDao();
 
         get("/hello", (req, res) -> {
             return "Hello World !!! ";
         });
 
         get("/firstData", (req, res) -> {
-            //Gson gson = new GsonBuilder();
             Gson gson = new Gson();
             FistDataEntity fistDataEntity = new FistDataEntity("Nmae of Entity", "123123-123123123-123123-asdadasdasd");
-
-//            Gson gjson = new GsonBuilder()
-//                    .setDateFormat("yyyy-MM-dd hh:mm:ss.S")
-//                    .setDateFormat("EEE, dd MMM yyyy HH:mm:ss z")
-//                    .create();
-//            MessageEntity entity = gjson.fromJson(req.body(), MessageEntity.class);
-
 
             res.type(APPLICATION_JSON);
             return gson.toJson(fistDataEntity);
@@ -50,6 +48,40 @@ public class MainPoint {
             res.redirect("/index2.html");
             return "";
         });
+
+
+        post("/message", APPLICATION_JSON, (req, res) -> {
+
+//            MessageEntity entity = new Gson().fromJson(req.body(), MessageEntity.class);
+            Gson gjson = new GsonBuilder()
+//                    .setDateFormat("yyyy-MM-dd hh:mm:ss.S")
+                    .setDateFormat("EEE, dd MMM yyyy HH:mm:ss z")
+                    .create();
+            MessageEntity entity = gjson.fromJson(req.body(), MessageEntity.class);
+
+            logger.debug("got entity = " + entity);
+
+
+            entity.entepriseUid = UUID.randomUUID().toString();
+            entity.consumerUid = UUID.randomUUID().toString();
+
+            SmsQueueService queueService = new SmsQueueService(dao);
+
+            MessageEntity messageEntity = null;
+            messageEntity = queueService.add(entity);
+
+            if (messageEntity == null) {
+                halt(500);
+            }
+
+            Gson gson = new GsonBuilder()
+//                    .setDateFormat(DateFormat.FULL, DateFormat.FULL).create();
+                    .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
+
+            res.type(APPLICATION_JSON);
+            return gson.toJson(messageEntity);
+        });
+
 
         exception(IllegalArgumentException.class, (e, req, res) -> {
             res.status(400);

@@ -4,6 +4,8 @@ apply plugin: 'distribution'
 mainClassName = 'ru.bpal.reminder.rest.MainPoint'
 
 dependencies {
+    compile project(':tp_data')
+
     compile 'com.sparkjava:spark-core:2.3'
     compile "postgresql:postgresql:$postgresqlJdbcVersiov"
     compile 'com.google.code.gson:gson:2.4'

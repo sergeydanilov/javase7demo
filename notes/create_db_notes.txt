@@ -1,0 +1,19 @@
+postgresql install
+https://help.ubuntu.com/community/PostgreSQL
+
+CREATE USER tpuser WITH PASSWORD 'tppasswd';
+
+CREATE DATABASE bpaldb3
+  WITH OWNER = tpuser
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'en_US.UTF-8'
+       LC_CTYPE = 'en_US.UTF-8'
+       CONNECTION LIMIT = -1;
+GRANT CONNECT, TEMPORARY ON DATABASE bpaldb3 TO public;
+GRANT ALL ON DATABASE bpaldb3 TO postgres;
+GRANT ALL ON DATABASE bpaldb3 TO tpuser;
+
+CREATE EXTENSION "uuid-ossp";
+
+CREATE DATABASE bpaldb3   WITH TEMPLATE=template0 OWNER = bpaluser        ENCODING = 'UTF8'        TABLESPACE = pg_default        LC_COLLATE = 'en_US.UTF-8'        LC_CTYPE = 'en_US.UTF-8'        CONNECTION LIMIT = -1;

@@ -1,0 +1,7 @@
+
+dependencies {
+    compile project(':tp_data')
+    compile project(':tp_rest')
+
+    compile "postgresql:postgresql:$postgresqlJdbcVersiov"
+}

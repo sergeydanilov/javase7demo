@@ -3,6 +3,8 @@ rootProject.name = 'learningjavase7'
 include 'tp_rest'
 include 'tp_launcher'
 include 'tp_data'
+include 'tp_rest_test'
+include 'tp_data_generator'
 
 
 

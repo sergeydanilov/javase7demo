@@ -76,7 +76,6 @@ task cleanUpDb << {
             dbPassword,
             'org.postgresql.Driver'
     )
-    sql.execute 'DROP SEQUENCE urgency_when_to_start_id_seq'
     sql.execute 'DROP FUNCTION upd_timestamp()'
 }
 

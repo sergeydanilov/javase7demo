@@ -42,14 +42,9 @@
             <column name="consumer_middle_name" type="TEXT"/>
             <column name="consumer_last_name" type="TEXT"/>
 
-            <column name="consumer_id" type="UUID">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="enterprise_id" type="UUID">
-                <constraints nullable="false"/>
-            </column>
-
+            <column name="consumer_id" type="UUID"/>
+            <column name="enterprise_id" type="UUID" />
+            <column name="sms_message_template_id" type="UUID" />
 
             <column name="status" type="TEXT"/>
 

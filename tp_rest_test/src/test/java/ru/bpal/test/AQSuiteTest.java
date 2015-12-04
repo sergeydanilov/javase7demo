@@ -58,7 +58,7 @@ public abstract class AQSuiteTest {
 
             String currentPath = new File(".").getAbsoluteFile().toString();
             File file;
-            file = new File(currentPath + "/properties/test.properties");
+            file = new File(currentPath + "./properties/test.properties");
 
             if (file.exists()) {
                 properties.load(new FileInputStream(file));

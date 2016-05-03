@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.sun.javafx.scene.control.skin.LabeledImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.bpal.reminder.rest.data.CitiesDataProvider;
 import ru.bpal.reminder.rest.data.dao.PastgresqlDao;
 import ru.bpal.reminder.rest.data.entity.db.MessageEntity;
 import ru.bpal.reminder.rest.data.service.SmsQueueService;
@@ -63,6 +64,12 @@ public class MainPoint {
 
             res.type(APPLICATION_JSON);
             return gson.toJson(list);
+        });
+
+        get("/cities", (req, res) -> {
+            Gson gson = new Gson();
+            res.type(APPLICATION_JSON);
+            return gson.toJson(CitiesDataProvider.cities);
         });
 
         get("/index2page", (req, res) -> {

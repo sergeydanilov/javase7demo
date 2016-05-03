@@ -2,12 +2,15 @@ package ru.bpal.reminder.rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sun.javafx.scene.control.skin.LabeledImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.bpal.reminder.rest.data.dao.PastgresqlDao;
 import ru.bpal.reminder.rest.data.entity.db.MessageEntity;
 import ru.bpal.reminder.rest.data.service.SmsQueueService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static ru.bpal.reminder.rest.JsonUtil.toJson;
@@ -42,6 +45,24 @@ public class MainPoint {
 
             res.type(APPLICATION_JSON);
             return gson.toJson(fistDataEntity);
+        });
+
+        get("/index2page", (req, res) -> {
+            res.redirect("/index2.html");
+            return "";
+        });
+
+        get("/firstDatas", (req, res) -> {
+            Gson gson = new Gson();
+            List<FistDataEntity> list = new ArrayList<FistDataEntity>();
+            for (int i = 0; i < 20; i++) {
+                UUID uuid = UUID.randomUUID();
+                FistDataEntity fistDataEntity = new FistDataEntity("Имя_"+i, uuid.toString());
+                list.add(fistDataEntity);
+            }
+
+            res.type(APPLICATION_JSON);
+            return gson.toJson(list);
         });
 
         get("/index2page", (req, res) -> {

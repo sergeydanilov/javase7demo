@@ -13,7 +13,7 @@ configurations {
 }
 
 dependencies {
-    compile "com.twilio.sdk:twilio-java-sdk:3.4.5"
+//    compile "com.twilio.sdk:twilio-java-sdk:3.4.5"
     compile 'joda-time:joda-time:2.7'
 
     liquibase 'postgresql:postgresql:9.1-901-1.jdbc4'

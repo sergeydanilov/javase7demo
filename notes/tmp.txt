@@ -1,0 +1,1 @@
+gradle -Dhttp.proxyHost=10.3.62.2 -Dhttps.proxyPort=3128 build -x test
